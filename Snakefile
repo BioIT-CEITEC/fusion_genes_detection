@@ -53,11 +53,9 @@ wildcard_constraints:
 ##### Target rules #####
 
 rule all:
-    input:  "qc_reports/final_alignment_report.html"
+    input:  expand("results/{sample}_fusions.xlsx",sample = sample_tab.sample_name)
 
 
 
 ##### Modules #####
-include: "rules/prepare_reference.smk"
-#include: "fastq2bam_RNA.smk"
 include: "rules/fusion_genes.smk"

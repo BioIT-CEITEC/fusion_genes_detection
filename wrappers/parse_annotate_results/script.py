@@ -2,18 +2,12 @@
 # wrapper for rule: parse_annotate_results
 ######################################
 import os
-import sys
-import math
-import subprocess
-import re
 from snakemake.shell import shell
-import argparse
-import urllib.request
-import shutil
-import collections
-import csv
+shell.executable("/bin/bash")
+log_filename = str(snakemake.log)
 
-f = open(snakemake.log.run, 'wt')
+
+f = open(log_filename, 'wt')
 f.write("\n##\n## RULE: parse_annotate_results \n##\n")
 f.close()
 
@@ -27,7 +21,7 @@ command = " Rscript "+os.path.abspath(os.path.dirname(__file__))+"/parse_annotat
             snakemake.input.STARFusion_tsv + " " +\
             snakemake.output.xlsx
 
-f = open(snakemake.log.run, 'at')
+f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
