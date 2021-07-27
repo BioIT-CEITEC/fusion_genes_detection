@@ -23,19 +23,19 @@ command = "arriba -c " + snakemake.input.chim + \
             " -b " + snakemake.input.bll + \
             " -o " + snakemake.output.good + \
             " -O " + snakemake.output.bad + \
-            " -T -T -P -P " + " >> " + log_filename + " 2>&1"
+            " -I " + " >> " + log_filename + " 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-command = " Rscript `dirname $(which arriba)`/draw_fusions.R "+\
+command = " Rscript `dirname $(which arriba)`/draw_fusions.R "+ \
+          " --annotation=" + snakemake.input.gtf + \
           " --fusions=" + snakemake.output.good + \
+          " --output=" + snakemake.output.pdf + \
           " --alignments=" + snakemake.input.bam +\
-          " --output=" + snakemake.output.pdf +\
-          " --annotation=" + snakemake.input.gtf +\
-          " --cytobands=`dirname $(which arriba)`/../var/lib/arriba/cytobands_hg38_GRCh38_2018-02-23.tsv" +  \
-          " --proteinDomains=`dirname $(which arriba)`/../var/lib/arriba/protein_domains_hg38_GRCh38_2018-03-06.gff3"
+          " --cytobands=`dirname $(which arriba)`/../var/lib/arriba/cytobands_hg38_GRCh38_v2.1.0.tsv " +  \
+          " --proteinDomains=`dirname $(which arriba)`/../var/lib/arriba/protein_domains_hg38_GRCh38_v2.1.0.gff3"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()

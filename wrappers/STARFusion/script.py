@@ -22,12 +22,15 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-input_files = " --left_fq " + snakemake.input.r1 + " --right_fq " + snakemake.input.r2
+if snakemake.params.paired == "PE":
+    input_files = " --left_fq " + snakemake.input.r1 + " --right_fq " + snakemake.input.r2
 # input_files = " -J " + snakemake.input.chim_junction
+else:
+    input_files = " --left_fq " + snakemake.input.r1
 
 command = "STAR-Fusion --CPU " + str(snakemake.threads) + \
                input_files + \
-               " --genome_lib_dir " + os.path.dirname(snakemake.input.ref_lib) + \
+               " --genome_lib_dir " + snakemake.input.ref_lib + \
                " --output_dir " + snakemake.params.dir + \
                " --FusionInspector validate" + \
                " --examine_coding_effect" + \

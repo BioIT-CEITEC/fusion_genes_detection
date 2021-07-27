@@ -5,14 +5,15 @@ Sys.setenv("R_ZIPCMD" = "zip")
 run_all <- function(args){
   arriba_tab_filename <- args[1]
   star_tab_filename <- args[2]
-  output_xlsx_filename <- args[3]
+  fusion_hub_filename <- args[3]
+  output_xlsx_filename <- args[4]
   
   
 arriba_tab <- fread(arriba_tab_filename)
 star_tab <- fread(star_tab_filename)
 
 if(nrow(arriba_tab) + nrow(star_tab) > 0){
-  fusion_hub_annot <- fread(paste0(script_dir,"/Fusionhub_global_summary.txt"))
+  fusion_hub_annot <- fread(fusion_hub_filename)
   fusion_hub_annot[,(tail(names(fusion_hub_annot),1)) := NULL]
   fusion_hub_annot <- melt.data.table(fusion_hub_annot,id.vars = "Fusion_gene")
   fusion_hub_annot <- fusion_hub_annot[value == "+",.(DB_count = .N,DB_list = paste(variable,collapse = ", ")),by = Fusion_gene]
@@ -157,7 +158,6 @@ write.xlsx(combined_res,file = output_xlsx_filename)
 
 }
 
-# script_dir <- dirname(sub("--file=", "", commandArgs()[grep("--file=", commandArgs())]))
 # args <- commandArgs(trailingOnly = T)
 # run_all(args)
 
@@ -169,8 +169,7 @@ write.xlsx(combined_res,file = output_xlsx_filename)
 # script_dir <<- "/mnt/nfs/shared/999993-Bioda/bioda_snakemake/wraps/fusion_genes/parse_annotate_results"
 
 #run as Rscript
-# 
-script_dir <<- dirname(sub("--file=", "", commandArgs()[grep("--file=", commandArgs())]))
+#
 args <- commandArgs(trailingOnly = T)
 run_all(args)
 
