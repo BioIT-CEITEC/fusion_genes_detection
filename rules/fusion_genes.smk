@@ -6,8 +6,8 @@ rule parse_annotate_results:
             bam = "mapped/{sample}.bam",
             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
     output: xlsx = "results/{sample}_fusions.xlsx",
-    params: txt = workflow.basedir+"/wrappers/parse_annotate_results/Fusionhub_global_summary.txt",
     log:    "logs/{sample}/parse_annotate_results.log",
+    params: txt = workflow.basedir+"/wrappers/parse_annotate_results/Fusionhub_global_summary.txt",
     conda:  "../wrappers/parse_annotate_results/env.yaml"
     script: "../wrappers/parse_annotate_results/script.py"
 
@@ -21,7 +21,7 @@ rule arriba:
             pdf = "results/{sample}/arriba/{sample}.arriba_fusion_viz.pdf",
             bad = "results/{sample}/arriba/{sample}.arriba_discarded.tsv",
     log:    "logs/{sample}/arriba.log",
-    threads:    1
+    threads: 1
     resources:  mem = 30
     conda:  "../wrappers/arriba/env.yaml"
     script: "../wrappers/arriba/script.py"
@@ -40,10 +40,10 @@ def STARFusion_input(wildcards):
 
 
 rule STARFusion:
-    input: unpack(STARFusion_input)
+    input:  unpack(STARFusion_input)
     output: tsv = "results/{sample}/STARFusion/{sample}.STARFusion.tsv",
     log:    "logs/{sample}/STARFusion.log",
-    threads:    20
+    threads: 20
     resources:  mem = 10
     params: dir = "results/{sample}/STARFusion/{sample}",
             paired = paired
