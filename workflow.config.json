@@ -8,7 +8,12 @@
       "mapped/*",
       "cleaned_fastq/{sample}*fastq.gz"
     ],
-    "outputs": "results/*"
+    "outputs": [
+      "results/*",
+      "arriba/*",
+      "STARFusion/*",
+      "sample_logs/*"
+    ]
   },
   "general_params": [
     "sample_name"
