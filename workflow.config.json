@@ -12,8 +12,6 @@
     ],
     "outputs": [
       "results/*",
-      "arriba/*",
-      "STARFusion/*",
       "sample_logs/*"
     ]
   },
