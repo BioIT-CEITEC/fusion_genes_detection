@@ -31,7 +31,7 @@ def STARFusion_input(wildcards):
         'chim_junction': "mapped/{sample}/{sample}Chimeric.out.junction",
         'ref_lib': expand("{ref_dir}/other/STARfusion/GRCh38_gencode_v33_CTAT_lib_Apr062020",ref_dir=reference_directory)[0]
     }
-    if read_pair_tags == [""]:
+    if config["is_paired"]:
         input['r1'] = "cleaned_fastq/{sample}.fastq.gz"
     else:
         input['r1'] = "cleaned_fastq/{sample}_R1.fastq.gz"
@@ -46,6 +46,6 @@ rule STARFusion:
     threads: 20
     resources:  mem = 10
     params: dir = "results/{sample}/STARFusion/{sample}",
-            paired = paired
+            is_paired = config["is_paired"]
     conda:  "../wrappers/STARFusion/env.yaml"
     script: "../wrappers/STARFusion/script.py"
