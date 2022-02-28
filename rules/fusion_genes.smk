@@ -31,7 +31,7 @@ def STARFusion_input(wildcards):
         'chim_junction': "mapped/{sample}/{sample}Chimeric.out.junction",
         'ref_lib': expand("{ref_dir}/other/STARfusion/GRCh38_gencode_v33_CTAT_lib_Apr062020",ref_dir=reference_directory)[0]
     }
-    if config["is_paired"]:
+    if not config["is_paired"]:
         input['r1'] = "cleaned_fastq/{sample}.fastq.gz"
     else:
         input['r1'] = "cleaned_fastq/{sample}_R1.fastq.gz"
