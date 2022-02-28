@@ -5,7 +5,7 @@
     "label":"Fusion genes detection",
     "type":"fusion_genes_detection",
     "inputs":[
-      "mapped/*",
+      "mapped/{sample}.bam*",
       "cleaned_fastq/{sample}*fastq.gz"
     ],
     "outputs": [
