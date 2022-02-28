@@ -5,6 +5,7 @@
     "label":"Fusion genes detection",
     "type":"fusion_genes_detection",
     "inputs":[
+      "mapped/{sample}/{sample}Chimeric.out.junction",
       "mapped/{sample}.bam*",
       "cleaned_fastq/{sample}*fastq.gz"
     ],
