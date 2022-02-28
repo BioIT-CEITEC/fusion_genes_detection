@@ -20,7 +20,8 @@
     "sample_name"
   ],
   "requested_params": [
-    "is_paired"
+    "is_paired",
+    "reference"
   ],
   "gui_params" : {}
 }
