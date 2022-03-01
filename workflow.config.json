@@ -12,7 +12,7 @@
     ],
     "outputs": [
       "results/*",
-      "sample_logs/*"
+      "logs/*"
     ]
   },
   "general_params": [
