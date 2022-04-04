@@ -5,22 +5,22 @@
     "label":"Fusion genes detection",
     "type":"fusion_genes_detection",
     "inputs":[
+      "mapped/{sample}/{sample}Chimeric.out.bam*",
       "mapped/{sample}/{sample}Chimeric.out.junction",
       "mapped/{sample}.bam*",
       "cleaned_fastq/{sample}*fastq.gz"
     ],
     "outputs": [
       "results/*",
-      "arriba/*",
-      "STARFusion/*",
-      "sample_logs/*"
+      "logs/*"
     ]
   },
   "general_params": [
     "sample_name"
   ],
   "requested_params": [
-    "is_paired"
+    "is_paired",
+    "reference"
   ],
   "gui_params" : {}
 }
