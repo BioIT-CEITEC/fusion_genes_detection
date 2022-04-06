@@ -35,7 +35,7 @@ wildcard_constraints:
 ##### Target rules #####
 
 rule all:
-    input: expand("results/{sample}_fusions.xlsx",sample = sample_tab.sample_name),
+    input: expand("fusion_genes_detection/{sample}_fusions.xlsx",sample = sample_tab.sample_name),
 
 ##### Modules #####
 include: "rules/fusion_genes.smk"

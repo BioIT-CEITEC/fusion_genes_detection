@@ -24,7 +24,7 @@ shell(command)
 
 if snakemake.params.is_paired:
     input_files = " --left_fq " + snakemake.input.r1 + " --right_fq " + snakemake.input.r2
-# input_files = " -J " + snakemake.input.chim_junction
+
 else:
     input_files = " --left_fq " + snakemake.input.r1
 

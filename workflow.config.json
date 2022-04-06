@@ -5,13 +5,13 @@
     "label":"Fusion genes detection",
     "type":"fusion_genes_detection",
     "inputs":[
-      "mapped/{sample}/{sample}Chimeric.out.bam*",
-      "mapped/{sample}/{sample}Chimeric.out.junction",
-      "mapped/{sample}.bam*",
-      "cleaned_fastq/{sample}*fastq.gz"
+      "mapped/{sample}.bam",
+      "mapped/{sample}/{sample}Chimeric.out.bam",
+      "cleaned_fastq/{sample}_R1.fastq.gz",
+      "cleaned_fastq/{sample}_R2.fastq.gz"
     ],
     "outputs": [
-      "results/*",
+      "fusion_genes_detection/*",
       "logs/*"
     ]
   },

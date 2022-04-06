@@ -40,3 +40,15 @@ f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
+
+command = "mv " + snakemake.input.chim + " " + snakemake.output.chim
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)
+
+command = "mv " + snakemake.input.bam + " " + snakemake.output.bam
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)
