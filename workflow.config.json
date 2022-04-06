@@ -6,7 +6,9 @@
     "type":"fusion_genes_detection",
     "inputs":[
       "mapped/{sample}.bam",
+      "mapped/{sample}.bam.bai",
       "mapped/{sample}/{sample}Chimeric.out.bam",
+      "mapped/{sample}/{sample}Chimeric.out.bam.bai",
       "cleaned_fastq/{sample}_R1.fastq.gz",
       "cleaned_fastq/{sample}_R2.fastq.gz"
     ],
