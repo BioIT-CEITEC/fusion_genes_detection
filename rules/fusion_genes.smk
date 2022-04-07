@@ -14,6 +14,8 @@ rule parse_annotate_results:
 rule arriba:
     input:  bam = "mapped/{sample}.bam",
             chim= "mapped/{sample}/{sample}Chimeric.out.bam",
+            bam_bai= "mapped/{sample}.bam.bai",
+            chim_bai="mapped/{sample}/{sample}Chimeric.out.bam.bai",
             ref = expand("{ref_dir}/seq/{ref}.fa",ref_dir=reference_directory,ref=config["reference"])[0],
             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
             bll = expand("{ref_dir}/other/arriba/blacklist.tsv.gz",ref_dir=reference_directory)[0],
@@ -22,6 +24,8 @@ rule arriba:
             bad = "fusion_genes_detection/{sample}/arriba/{sample}.arriba_discarded.tsv",
             bam = "fusion_genes_detection/{sample}/mapped/{sample}.bam",
             chim = "fusion_genes_detection/{sample}/mapped/{sample}Chimeric.out.bam",
+            bam_bai= "fusion_genes_detection/{sample}/mapped/{sample}.bam.bai",
+            chim_bai="fusion_genes_detection/{sample}/mapped/{sample}Chimeric.out.bam.bai"
     log:    "logs/{sample}/arriba.log",
     threads: 1
     resources:  mem = 30

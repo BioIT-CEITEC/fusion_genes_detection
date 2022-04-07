@@ -47,7 +47,19 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
+command = "mv " + snakemake.input.chim_bai + " " + snakemake.output.chim_bai
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)
+
 command = "mv " + snakemake.input.bam + " " + snakemake.output.bam
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)
+
+command = "mv " + snakemake.input.bam_bai + " " + snakemake.output.bam_bai
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
