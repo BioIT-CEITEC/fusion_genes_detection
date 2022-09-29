@@ -35,7 +35,8 @@ command = " Rscript `dirname $(which arriba)`/draw_fusions.R "+ \
           " --output=" + snakemake.output.pdf + \
           " --alignments=" + snakemake.input.bam +\
           " --cytobands=`dirname $(which arriba)`/../var/lib/arriba/cytobands_hg38_GRCh38_v2.1.0.tsv " +  \
-          " --proteinDomains=`dirname $(which arriba)`/../var/lib/arriba/protein_domains_hg38_GRCh38_v2.1.0.gff3"
+          " --proteinDomains=`dirname $(which arriba)`/../var/lib/arriba/protein_domains_hg38_GRCh38_v2.1.0.gff3" + \
+          " >> " + log_filename + " 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
