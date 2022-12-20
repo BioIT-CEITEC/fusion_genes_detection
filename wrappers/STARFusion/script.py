@@ -46,8 +46,17 @@ except:
     f.write("## COMMAND: "+command + " --- failed with error. However, if finspector.FusionInspector.fusions.abridged.tsv exists, I don't care. :-)\n")
     f.close()
 
-command = "cp " + snakemake.params.tmpd + "/" + snakemake.wildcards.sample + "/FusionInspector-validate/finspector.FusionInspector.fusions.abridged.tsv " + snakemake.output.tsv
-f = open(log_filename, 'at')
-f.write("## COMMAND: "+command+"\n")
-f.close()
-shell(command)
+result = snakemake.params.tmpd + "/" + snakemake.wildcards.sample + "/FusionInspector-validate/finspector.FusionInspector.fusions.abridged.tsv"
+
+if os.path.exists(result) and os.path.isfile(result):
+    command = "cp " + result + " " + snakemake.output.tsv
+    f = open(log_filename, 'at')
+    f.write("## COMMAND: "+command+"\n")
+    f.close()
+    shell(command)
+else:
+    command = "touch " + snakemake.output.tsv
+    f = open(log_filename, 'at')
+    f.write("## COMMAND: "+command+"\n")
+    f.close()
+    shell(command)
