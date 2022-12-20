@@ -45,7 +45,7 @@ rule STARFusion:
     log:    "logs/{sample}/STARFusion.log",
     threads: 20
     resources:  mem = 10
-    params: dir = "results/{sample}/STARFusion/{sample}",
-            is_paired = config["is_paired"]
+    params: tmpd = GLOBAL_TMPD_PATH,
+            is_paired = config["is_paired"],
     conda:  "../wrappers/STARFusion/env.yaml"
     script: "../wrappers/STARFusion/script.py"

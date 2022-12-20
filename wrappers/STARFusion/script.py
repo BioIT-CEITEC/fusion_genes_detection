@@ -31,7 +31,7 @@ else:
 command = "STAR-Fusion --CPU " + str(snakemake.threads) + \
                input_files + \
                " --genome_lib_dir " + snakemake.input.ref_lib + \
-               " --output_dir " + snakemake.params.dir + \
+               " --output_dir " + snakemake.params.tmpd + "/" + snakemake.wildcards.sample + \
                " --FusionInspector validate" + \
                " --examine_coding_effect" + \
                " >> " + log_filename + " 2>&1 "
@@ -46,7 +46,7 @@ except:
     f.write("## COMMAND: "+command + " --- failed with error. However, if finspector.FusionInspector.fusions.abridged.tsv exists, I don't care. :-)\n")
     f.close()
 
-command = "cp " + snakemake.params.dir + "/FusionInspector-validate/finspector.FusionInspector.fusions.abridged.tsv " + snakemake.output.tsv
+command = "cp " + snakemake.params.tmpd + "/" + snakemake.wildcards.sample + "/FusionInspector-validate/finspector.FusionInspector.fusions.abridged.tsv " + snakemake.output.tsv
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
