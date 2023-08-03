@@ -16,7 +16,7 @@ rule arriba:
             chim= "mapped/{sample}/{sample}Chimeric.out.bam",
             ref = expand("{ref_dir}/seq/{ref}.fa",ref_dir=reference_directory,ref=config["reference"])[0],
             gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-            bll = expand("{ref_dir}/other/arriba/blacklist.tsv.gz",ref_dir=reference_directory)[0],
+            bll = expand("{ref_dir}/other/arriba/blacklist_hg38_GRCh38_v2.4.0.tsv.gz",ref_dir=reference_directory)[0],
     output: good= "results/{sample}/arriba/{sample}.arriba_fusion.tsv",
             pdf = "results/{sample}/arriba/{sample}.arriba_fusion_viz.pdf",
             bad = "results/{sample}/arriba/{sample}.arriba_discarded.tsv",
@@ -29,7 +29,7 @@ rule arriba:
 def STARFusion_input(wildcards):
     input = {
         'chim_junction': "mapped/{sample}/{sample}Chimeric.out.junction",
-        'ref_lib': expand("{ref_dir}/other/STARfusion/GRCh38_gencode_v37_CTAT_lib_Mar012021",ref_dir=reference_directory)[0]
+        'ref_lib': expand("{ref_dir}/other/STARfusion/GRCh38_gencode_v33_CTAT_lib_Apr062020",ref_dir=reference_directory)[0]
     }
     if not config["is_paired"]:
         input['r1'] = "cleaned_fastq/{sample}.fastq.gz"
