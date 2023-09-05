@@ -7,8 +7,8 @@ run_all <- function(args){
   star_tab_filename <- args[2]
   fusion_hub_filename <- args[3]
   output_xlsx_filename <- args[4]
-  
-  
+
+
 arriba_tab <- fread(arriba_tab_filename)
 star_tab <- fread(star_tab_filename)
 
@@ -17,15 +17,16 @@ if(nrow(arriba_tab) + nrow(star_tab) > 0){
   fusion_hub_annot[,(tail(names(fusion_hub_annot),1)) := NULL]
   fusion_hub_annot <- melt.data.table(fusion_hub_annot,id.vars = "Fusion_gene")
   fusion_hub_annot <- fusion_hub_annot[value == "+",.(DB_count = .N,DB_list = paste(variable,collapse = ", ")),by = Fusion_gene]
-  
+
   setnames(arriba_tab,"#gene1","gene1")
-  arriba_tab[,c("chrom1","pos1") := tstrsplit(breakpoint1,":")]
-  arriba_tab[,c("chrom2","pos2") := tstrsplit(breakpoint2,":")]
-  arriba_tab[,.(gene2_sep = unlist(strsplit(gene2,",")))]
-  arriba_tab[,gene2_sep := strsplit(gene2,",")]
-  arriba_tab <- arriba_tab[rep(arriba_tab[,.I], lengths(gene2_sep))][, gene2_sep := unlist(arriba_tab$gene2_sep)][]
-  
+
   if(nrow(arriba_tab) > 0){
+    arriba_tab[,c("chrom1","pos1") := tstrsplit(breakpoint1,":")]
+    arriba_tab[,c("chrom2","pos2") := tstrsplit(breakpoint2,":")]
+    arriba_tab[,.(gene2_sep = unlist(strsplit(gene2,",")))]
+    arriba_tab[,gene2_sep := strsplit(gene2,",")]
+    arriba_tab <- arriba_tab[rep(arriba_tab[,.I], lengths(gene2_sep))][, gene2_sep := unlist(arriba_tab$gene2_sep)][]
+
     arriba_tab <- arriba_tab[,.(gene1 = gene1
                                 ,gene2 = gsub("\\(.*","",gene2_sep)
                                 ,chrom1 = paste0("chr",chrom1)
@@ -62,8 +63,8 @@ if(nrow(arriba_tab) + nrow(star_tab) > 0){
                              ,arriba.break_seq = character()
                              ,arriba.called = logical())
   }
-  
-  
+
+
   if(nrow(star_tab) > 0){
     star_tab[,c("chrom1","pos1","strand1") := tstrsplit(LeftBreakpoint,":")]
     star_tab[,c("chrom2","pos2","strand2") := tstrsplit(RightBreakpoint,":")]
@@ -99,12 +100,12 @@ if(nrow(arriba_tab) + nrow(star_tab) > 0){
                            ,starfus.break_seq = character()
                            ,starfus.called = logical())
   }
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
   combined_res <- merge(arriba_tab,star_tab,by = c("gene1","gene2","chrom1","pos1","strand1","chrom2","pos2","strand2"),all = T)
   combined_res[is.na(arriba.called),arriba.called := F]
   combined_res[is.na(starfus.called),starfus.called := F]
@@ -117,7 +118,7 @@ if(nrow(arriba_tab) + nrow(star_tab) > 0){
   combined_res[is.na(DB_count),DB_count := 0]
   combined_res[is.na(DB_list),DB_list := ""]
   combined_res[,Fusion_gene := NULL]
-  
+
   setcolorder(combined_res,c("gene1"
                              ,"gene2"
                              ,"chrom1"
