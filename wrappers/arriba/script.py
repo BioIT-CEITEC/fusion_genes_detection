@@ -16,7 +16,7 @@ f = open(log_filename, 'at')
 f.write("## VERSION: arriba "+version+"\n")
 f.close()
 
-command = "arriba -c " + snakemake.input.chim + \
+command = "arriba -u -c " + snakemake.input.chim + \
             " -x " + snakemake.input.bam + \
             " -a " + snakemake.input.ref + \
             " -g " + snakemake.input.gtf + \
