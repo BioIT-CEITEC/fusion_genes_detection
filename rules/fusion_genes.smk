@@ -4,7 +4,7 @@ rule parse_annotate_results:
     input:  arriba_tsv = "results/{sample}/arriba/{sample}.arriba_fusion.tsv",
             STARFusion_tsv = "results/{sample}/STARFusion/{sample}.STARFusion.tsv",
             bam = "mapped/{sample}.bam",
-            gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
+            gtf = config["organism_gtf"],
     output: xlsx = "results/{sample}_fusions.xlsx",
     log:    "logs/{sample}/parse_annotate_results.log",
     params: txt = workflow.basedir+"/wrappers/parse_annotate_results/Fusionhub_global_summary.txt",
@@ -14,9 +14,9 @@ rule parse_annotate_results:
 rule arriba:
     input:  bam = "mapped/{sample}.bam",
             chim= "mapped/{sample}/{sample}Chimeric.out.bam",
-            ref = expand("{ref_dir}/seq/{ref}.fa",ref_dir=reference_directory,ref=config["reference"])[0],
-            gtf = expand("{ref_dir}/annot/{ref}.gtf",ref_dir=reference_directory,ref=config["reference"])[0],
-            bll = expand("{ref_dir}/other/arriba/blacklist_hg38_GRCh38_v2.4.0.tsv.gz",ref_dir=reference_directory)[0],
+            ref = config["organism_fasta"],
+            gtf = config["organism_gtf"],
+            bll = config["reference_dir"] + "/others/arriba/blacklist_hg38_GRCh38_v2.4.0.tsv.gz",
     output: good= "results/{sample}/arriba/{sample}.arriba_fusion.tsv",
             pdf = "results/{sample}/arriba/{sample}.arriba_fusion_viz.pdf",
             bad = "results/{sample}/arriba/{sample}.arriba_discarded.tsv",
@@ -29,7 +29,7 @@ rule arriba:
 def STARFusion_input(wildcards):
     input = {
         'chim_junction': "mapped/{sample}/{sample}Chimeric.out.junction",
-        'ref_lib': expand("{ref_dir}/other/STARfusion/GRCh38_gencode_v37_CTAT_lib_Mar012021",ref_dir=reference_directory)[0]
+        'ref_lib': config["reference_dir"] + "/others/STARfusion/GRCh38_gencode_v37_CTAT_lib_Mar012021"
     }
     if not config["is_paired"]:
         input['r1'] = "cleaned_fastq/{sample}.fastq.gz"

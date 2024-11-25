@@ -20,7 +20,8 @@
   ],
   "requested_params": [
     "is_paired",
-    "reference"
+    "organism",
+    "assembly"
   ],
   "gui_params" : {}
 }
