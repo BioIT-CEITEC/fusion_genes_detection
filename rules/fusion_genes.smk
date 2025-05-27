@@ -32,10 +32,10 @@ def STARFusion_input(wildcards):
         'ref_lib': config["reference_dir"] + "/others/STARfusion/GRCh38_gencode_v37_CTAT_lib_Mar012021"
     }
     if not config["is_paired"]:
-        input['r1'] = "cleaned_fastq/{sample}.fastq.gz"
+        input['r1'] = "processed_fastq/{sample}_R1.fastq.gz"
     else:
-        input['r1'] = "cleaned_fastq/{sample}_R1.fastq.gz"
-        input['r2'] = "cleaned_fastq/{sample}_R2.fastq.gz"
+        input['r1'] = "processed_fastq/{sample}_R1.fastq.gz"
+        input['r2'] = "processed_fastq/{sample}_R2.fastq.gz"
     return input
 
 
