@@ -8,7 +8,7 @@
       "mapped/{sample}/{sample}Chimeric.out.bam*",
       "mapped/{sample}/{sample}Chimeric.out.junction",
       "mapped/{sample}.bam*",
-      "cleaned_fastq/{sample}*fastq.gz"
+      "processed_fastq/{sample}*fastq.gz"
     ],
     "outputs": [
       "results/*",
